@@ -1,0 +1,6 @@
+{
+  "name": "AMIGA Robot Admin - Intelligent Invoice-to-Voucher Processing",
+  "description": "Sistem Pemrosesan Faktur Vendor ke Bukti Pengeluaran Kas/Bank (Payment Voucher) Cerdas berbasis AI Multimodal dengan Validasi Otomatis, Segregation of Duties, dan Multi-Client Isolation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,43 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default safety catch-all: deny everything else
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128;
+    }
+
+    // User Profile collection: users can read and manage their own profile
+    match /users/{userId} {
+      allow get: if isSignedIn() && (request.auth.uid == userId);
+      allow list: if isSignedIn();
+      allow create, update: if isSignedIn() && (request.auth.uid == userId);
+      allow delete: if false;
+    }
+
+    // Invoices collection: accessible by authenticated back-office and client users
+    match /invoices/{invoiceId} {
+      allow get, list: if isSignedIn();
+      allow create: if isSignedIn() && isValidId(invoiceId);
+      allow update: if isSignedIn() && isValidId(invoiceId);
+      allow delete: if false;
+    }
+  }
+}

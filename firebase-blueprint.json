@@ -1,0 +1,63 @@
+{
+  "entities": {
+    "InvoiceDocument": {
+      "title": "InvoiceDocument",
+      "description": "Dokumen Faktur Vendor ke Voucher Pembayaran AMIGA Back Office",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "requestId": { "type": "string" },
+        "invoiceNumber": { "type": "string" },
+        "vendorName": { "type": "string" },
+        "vendorTaxId": { "type": "string" },
+        "clientId": { "type": "string" },
+        "clientName": { "type": "string" },
+        "intakeChannel": { "type": "string" },
+        "requestType": { "type": "string" },
+        "uploadDate": { "type": "string" },
+        "dueDate": { "type": "string" },
+        "deadlineSLA": { "type": "string" },
+        "uploadedByUserId": { "type": "string" },
+        "uploadedByUserName": { "type": "string" },
+        "status": { "type": "string" },
+        "exceptionFlags": { "type": "array" },
+        "currency": { "type": "string" },
+        "subtotal": { "type": "number" },
+        "taxAmount": { "type": "number" },
+        "discountAmount": { "type": "number" },
+        "grandTotal": { "type": "number" },
+        "bankDetails": { "type": "object" },
+        "lineItems": { "type": "array" },
+        "auditTrail": { "type": "array" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["requestId", "invoiceNumber", "vendorName", "clientId", "status", "grandTotal"]
+    },
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Profil Pengguna dan Peran Hak Akses (RBAC) AMIGA",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string" },
+        "roleLabel": { "type": "string" },
+        "clientId": { "type": "string" },
+        "clientName": { "type": "string" }
+      },
+      "required": ["uid", "email", "role"]
+    }
+  },
+  "firestore": {
+    "/invoices/{invoiceId}": {
+      "schema": "InvoiceDocument",
+      "description": "Koleksi faktur vendor dan voucher pembayaran"
+    },
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Koleksi profil pengguna akun AMIGA"
+    }
+  }
+}
